@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>📜 Logs</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th><th>Type</th><th>Message</th><th>Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for l in logs %}
+    <tr>
+      <td>{{ l[0] }}</td>
+      <td>{{ l[1] }}</td>
+      <td>{{ l[2] }}</td>
+      <td>{{ l[3] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
