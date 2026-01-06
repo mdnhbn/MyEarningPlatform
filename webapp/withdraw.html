@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Withdraw - MyEarningPlatform</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/telegram.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/withdraw.js" defer></script>
+</head>
+<body>
+  <h2>💸 Withdraw</h2>
+
+  <form id="withdraw-form" class="form">
+    <label>Amount</label>
+    <input type="number" step="0.01" name="amount" required>
+
+    <label>Currency (e.g. USD, BDT)</label>
+    <input type="text" name="currency" required>
+
+    <button type="submit" class="btn">Submit Withdraw</button>
+  </form>
+
+  <div id="result" class="status"></div>
+
+  <a href="index.html" class="btn back-btn">⬅ Back to Dashboard</a>
+</body>
+</html>
