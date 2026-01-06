@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>📝 Tasks</h3>
+
+<form method="post" action="/admin/tasks/add" class="row g-2 mb-4">
+  <div class="col-md-4">
+    <input class="form-control" name="title" placeholder="Task title">
+  </div>
+  <div class="col-md-4">
+    <input class="form-control" name="link" placeholder="Task link">
+  </div>
+  <div class="col-md-2">
+    <input class="form-control" name="reward" type="number" step="0.01" placeholder="Reward">
+  </div>
+  <div class="col-md-2">
+    <button class="btn btn-success w-100">Add Task</button>
+  </div>
+</form>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th><th>Title</th><th>Link</th><th>Reward</th><th>Active</th><th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for t in tasks %}
+    <tr>
+      <td>{{ t[0] }}</td>
+      <td>{{ t[1] }}</td>
+      <td><a href="{{ t[2] }}" target="_blank">Open</a></td>
+      <td>{{ t[3] }}</td>
+      <td>{{ "Yes" if t[4] else "No" }}</td>
+      <td class="d-flex gap-1">
+        <form method="post" action="/admin/tasks/toggle">
+          <input type="hidden" name="task_id" value="{{ t[0] }}">
+          <input type="hidden" name="active" value="{{ 0 if t[4] else 1 }}">
+          <button class="btn btn-sm {{ 'btn-warning' if t[4] else 'btn-primary' }}">
+            {{ 'Off' if t[4] else 'On' }}
+          </button>
+        </form>
+        <form method="post" action="/admin/tasks/remove">
+          <input type="hidden" name="task_id" value="{{ t[0] }}">
+          <button class="btn btn-sm btn-danger">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
