@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>💸 Withdraws ({{ status }})</h3>
+
+<div class="mb-3">
+  <a class="btn btn-sm btn-outline-primary" href="/admin/withdraws?status=pending">Pending</a>
+  <a class="btn btn-sm btn-outline-success" href="/admin/withdraws?status=approved">Approved</a>
+  <a class="btn btn-sm btn-outline-danger" href="/admin/withdraws?status=rejected">Rejected</a>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th><th>User ID</th><th>Amount</th><th>Currency</th>
+      <th>Status</th><th>Created</th><th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for w in withdraws %}
+    <tr>
+      <td>{{ w[0] }}</td>
+      <td>{{ w[1] }}</td>
+      <td>{{ w[2] }}</td>
+      <td>{{ w[3] }}</td>
+      <td>{{ w[4] }}</td>
+      <td>{{ w[5] }}</td>
+      <td>
+        {% if w[4] == "pending" %}
+        <div class="d-flex gap-1">
+          <form method="post" action="/admin/withdraws/approve">
+            <input type="hidden" name="withdraw_id" value="{{ w[0] }}">
+            <button class="btn btn-sm btn-success">Approve</button>
+          </form>
+          <form method="post" action="/admin/withdraws/reject">
+            <input type="hidden" name="withdraw_id" value="{{ w[0] }}">
+            <button class="btn btn-sm btn-danger">Reject</button>
+          </form>
+        </div>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
